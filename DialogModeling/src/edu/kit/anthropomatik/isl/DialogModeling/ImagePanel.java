@@ -3,6 +3,9 @@ package edu.kit.anthropomatik.isl.DialogModeling;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JPanel;
 
 import org.opencv.core.Core;
@@ -22,13 +25,21 @@ public class ImagePanel extends JPanel {
 	
 	private VideoCapture camera;
 	
-	private CascadeClassifier faceDetector;
-	
+	List<CascadeClassifier> faceDetectors; // all detectors being used right now
+		
 	public ImagePanel(VideoCapture camera) {
 		super();
 		this.camera = camera;
 		this.image = new BufferedImage(100, 100, BufferedImage.TYPE_3BYTE_BGR);
-		this.faceDetector = new CascadeClassifier("./resources/haarcascade_frontalface_alt_tree.xml");
+		
+		this.faceDetectors = new ArrayList<CascadeClassifier>(5);
+		
+		this.faceDetectors.add(new CascadeClassifier("./resources/haarcascade_frontalface_alt_tree.xml"));
+		this.faceDetectors.add(new CascadeClassifier("./resources/lbpcascade_frontalface.xml"));
+		this.faceDetectors.add(new CascadeClassifier("./resources/haarcascade_frontalface_default.xml"));
+		this.faceDetectors.add(new CascadeClassifier("./resources/haarcascade_frontalface_alt.xml"));
+		this.faceDetectors.add(new CascadeClassifier("./resources/haarcascade_frontalface_alt2.xml"));
+		
 	}
 	
 	@Override
@@ -41,14 +52,23 @@ public class ImagePanel extends JPanel {
 		Mat original = frame.clone(); // clone is mandatory!
 		
 		// detect faces
-		MatOfRect detectedFaces = new MatOfRect();
-		faceDetector.detectMultiScale(original, detectedFaces);
-		
-		// illustrate faces
-		for (Rect rect : detectedFaces.toArray()) {
-			Core.rectangle(original, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height), new Scalar(0,255,0));
+		List<Scalar> colors = new ArrayList<Scalar>(faceDetectors.size());
+		colors.add(new Scalar(0,255,0));
+		colors.add(new Scalar(255,255,0));
+		colors.add(new Scalar(0,255,255));
+		colors.add(new Scalar(255,0,0));
+		colors.add(new Scalar(0,0,255));
+		int i = 0;
+		List<MatOfRect> detectedFaces = new ArrayList<MatOfRect>(faceDetectors.size());
+		for(CascadeClassifier detector : faceDetectors) {
+			MatOfRect faces = new MatOfRect();
+			detector.detectMultiScale(original, faces);
+			detectedFaces.add(faces);
+			for (Rect rect : faces.toArray())
+				Core.rectangle(original, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height), colors.get(i));
+			i++;
 		}
-		
+				
 		displayImage(original);
 		
 		g.drawImage(image, 0, 0, null);
