@@ -50,8 +50,8 @@ public class FaceDetectorAdapter {
 			Core.rectangle(original, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height), new Scalar(0,255,0));
 
 		if (!faces.empty()) {
-			// pick first detected face; TODO Lucas: pick largest one instead!
-			face = original.submat(faces.toArray()[0]);
+			// pick largest detected face and display it
+			face = original.submat(getLargestFace(faces));
 			Imgproc.resize(face, face, new Size(100,100));
 			BufferedImage faceFrame = matToImage(face);
 			facePanel.setImage(faceFrame);
@@ -61,6 +61,17 @@ public class FaceDetectorAdapter {
 		BufferedImage videoStreamFrame = matToImage(original);
 		videoStreamPanel.setImage(videoStreamFrame);
 		
+	}
+	
+	// returns the largest Rect in the given MatOfRect
+	private Rect getLargestFace(MatOfRect facesList) {
+		Rect result = new Rect();
+		for(Rect rect : facesList.toArray()) {
+			if (rect.area() > result.area()) {
+				result = rect;
+			}
+		}
+		return result;
 	}
 	
 	// converts the OpenCV Mat type into a BufferedImage
