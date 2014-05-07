@@ -1,18 +1,16 @@
 package edu.kit.anthropomatik.isl.DialogModeling.OpenCV;
 
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
 
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
-import org.opencv.core.MatOfRect;
-import org.opencv.core.Point;
-import org.opencv.core.Rect;
-import org.opencv.core.Scalar;
-import org.opencv.core.Size;
-import org.opencv.highgui.VideoCapture;
-import org.opencv.imgproc.Imgproc;
-import org.opencv.objdetect.CascadeClassifier;
+import org.bytedeco.javacpp.opencv_core;
+import org.bytedeco.javacpp.opencv_core.IplImage;
+import org.bytedeco.javacpp.opencv_core.Mat;
+import org.bytedeco.javacpp.opencv_core.Rect;
+import org.bytedeco.javacpp.opencv_highgui;
+import org.bytedeco.javacpp.opencv_highgui.CvCapture;
+import org.bytedeco.javacpp.opencv_highgui.VideoCapture;
+import org.bytedeco.javacpp.opencv_imgproc;
+import org.bytedeco.javacpp.opencv_objdetect.CascadeClassifier;
 
 import edu.kit.anthropomatik.isl.DialogModeling.Display.ImagePanel;
 
@@ -36,59 +34,53 @@ public class FaceDetectorAdapter {
 	public void detectFaces() {
 		
 		// get new frame from camera
-		Mat frame = new Mat();
-		camera.read(frame);
-		Mat original = frame.clone(); // clone is mandatory!
+		// TODO Lucas: clean up "camera" and "cap"
+		CvCapture cap = opencv_highgui.cvCreateCameraCapture(0);
+		IplImage original = opencv_highgui.cvQueryFrame(cap);
+		Mat matOfOriginal = new Mat(original);
 		
 		// detect faces
-		Mat face = new Mat();
-		MatOfRect faces = new MatOfRect();
-		faceDetector.detectMultiScale(original, faces);
+		Rect face = new Rect();
+		faceDetector.detectMultiScale(matOfOriginal, face);
+		// TODO Lucas: use other detector?
+		// TODO Lucas: CvHaarClassifierCascade cascade = new CvHaarClassifierCascade(cvLoad(CASCADE_FILE));
 
-		// indicate detected faces in video stream
-		for (Rect rect : faces.toArray())
-			Core.rectangle(original, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height), new Scalar(0,255,0));
-
-		if (!faces.empty()) {
-			// pick largest detected face and display it
-			face = original.submat(getLargestFace(faces));
-			Imgproc.resize(face, face, new Size(100,100));
-			BufferedImage faceFrame = matToImage(face);
+		if (face.area() > 0) {	// we detected a face
+			
+			// cut it out			
+			IplImage faceImage = IplImage.create(original.cvSize(), original.depth(), original.nChannels());
+			opencv_core.cvCopy(original, faceImage);
+			opencv_core.cvSetImageROI(faceImage, opencv_core.cvRect(face.x(), face.y(), face.width(), face.height()));
+			
+			// now resize it to 100x100px
+			IplImage faceCropped = IplImage.create(100, 100, original.depth(), original.nChannels());
+			opencv_imgproc.cvResize(faceImage, faceCropped);
+			
+			// and finally display it
+			BufferedImage faceFrame = new BufferedImage(100, 100, BufferedImage.TYPE_3BYTE_BGR);
+			faceCropped.copyTo(faceFrame);
 			facePanel.setImage(faceFrame);
 		}
 		
+		// put a rectangle into the video stream to show detected face
+		opencv_core.cvRectangle(original, opencv_core.cvPoint(face.x(), face.y()), opencv_core.cvPoint(face.x() + face.width(), face.y() + face.height()), opencv_core.cvScalar(0, 255, 0, 0));
+		
 		// always display video stream
-		BufferedImage videoStreamFrame = matToImage(original);
+		BufferedImage videoStreamFrame = new BufferedImage(640, 480, BufferedImage.TYPE_3BYTE_BGR);
+		original.copyTo(videoStreamFrame); //matToImage(original);
 		videoStreamPanel.setImage(videoStreamFrame);
 		
 	}
 	
+	// commented out for now, but might be useful in the near future; TODO Lucas: Reuse or delete
 	// returns the largest Rect in the given MatOfRect
-	private Rect getLargestFace(MatOfRect facesList) {
-		Rect result = new Rect();
-		for(Rect rect : facesList.toArray()) {
-			if (rect.area() > result.area()) {
-				result = rect;
-			}
-		}
-		return result;
-	}
-	
-	// converts the OpenCV Mat type into a BufferedImage
-	private BufferedImage matToImage(Mat mat) {
-		
-		int type = BufferedImage.TYPE_BYTE_GRAY;
-		if (mat.channels() > 1)
-			type = BufferedImage.TYPE_3BYTE_BGR;
-		
-		int bufferSize = mat.channels() * mat.cols() * mat.rows();
-		byte[] b = new byte[bufferSize];
-		mat.get(0,0,b);
-		
-		BufferedImage image = new BufferedImage(mat.cols(), mat.rows(), type);
-		final byte[] targetPixels = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
-		System.arraycopy(b, 0, targetPixels, 0, b.length);
-
-		return image;
-	}
+//	private Rect getLargestFace(MatOfRect facesList) {
+//		Rect result = new Rect();
+//		for(Rect rect : facesList.toArray()) {
+//			if (rect.area() > result.area()) {
+//				result = rect;
+//			}
+//		}
+//		return result;
+//	}
 }

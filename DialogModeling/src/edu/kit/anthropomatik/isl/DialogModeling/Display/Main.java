@@ -5,8 +5,8 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import org.opencv.core.Core;
-import org.opencv.highgui.VideoCapture;
+import org.bytedeco.javacpp.Loader;
+import org.bytedeco.javacpp.opencv_highgui.VideoCapture;
 
 import edu.kit.anthropomatik.isl.DialogModeling.OpenCV.FaceDetectorAdapter;
 
@@ -20,7 +20,8 @@ public class Main {
 	public static void main(String[] args) {
 		
 		// load OpenCV library
-		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+//		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+		Loader.load(org.bytedeco.javacpp.opencv_core.class); 		
 		
 		// grab the camera
 		VideoCapture camera = new VideoCapture(0);
