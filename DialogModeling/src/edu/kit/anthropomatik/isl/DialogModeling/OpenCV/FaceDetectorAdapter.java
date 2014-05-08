@@ -8,7 +8,6 @@ import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.Rect;
 import org.bytedeco.javacpp.opencv_highgui;
 import org.bytedeco.javacpp.opencv_highgui.CvCapture;
-import org.bytedeco.javacpp.opencv_highgui.VideoCapture;
 import org.bytedeco.javacpp.opencv_imgproc;
 import org.bytedeco.javacpp.opencv_objdetect.CascadeClassifier;
 
@@ -19,14 +18,15 @@ public class FaceDetectorAdapter {
 	private ImagePanel videoStreamPanel; 	//display the video stream
 	private ImagePanel facePanel;			//display the detected face
 	
-	private VideoCapture camera;			
+	private CvCapture camera;
 	private CascadeClassifier faceDetector;	
 	
-	public FaceDetectorAdapter(ImagePanel videoStreamPanel, ImagePanel facePanel, VideoCapture camera) {
+	public FaceDetectorAdapter(ImagePanel videoStreamPanel, ImagePanel facePanel) {
 		this.videoStreamPanel = videoStreamPanel;
 		this.facePanel = facePanel;
-		this.camera = camera;
-		
+
+		// grab the camera
+		this.camera = opencv_highgui.cvCreateCameraCapture(0);
 		// this detector seems to be the most stable one
 		this.faceDetector = new CascadeClassifier("./resources/haarcascade_frontalface_alt_tree.xml");
 	}
@@ -34,9 +34,7 @@ public class FaceDetectorAdapter {
 	public void detectFaces() {
 		
 		// get new frame from camera
-		// TODO Lucas: clean up "camera" and "cap"
-		CvCapture cap = opencv_highgui.cvCreateCameraCapture(0);
-		IplImage original = opencv_highgui.cvQueryFrame(cap);
+		IplImage original = opencv_highgui.cvQueryFrame(camera);
 		Mat matOfOriginal = new Mat(original);
 		
 		// detect faces

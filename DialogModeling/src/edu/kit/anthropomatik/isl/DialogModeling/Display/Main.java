@@ -6,7 +6,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import org.bytedeco.javacpp.Loader;
-import org.bytedeco.javacpp.opencv_highgui.VideoCapture;
 
 import edu.kit.anthropomatik.isl.DialogModeling.OpenCV.FaceDetectorAdapter;
 
@@ -20,16 +19,8 @@ public class Main {
 	public static void main(String[] args) {
 		
 		// load OpenCV library
-//		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		Loader.load(org.bytedeco.javacpp.opencv_core.class); 		
-		
-		// grab the camera
-		VideoCapture camera = new VideoCapture(0);
-		if (!camera.isOpened()) {
-			System.err.println("Error! No default video device found...");
-			return;
-		}
-		
+				
 		// set up the display window
 		window = new JFrame("DialogModeling");
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,7 +40,7 @@ public class Main {
 		window.setVisible(true);
 		
 		// now do the face detection
-		FaceDetectorAdapter faceDetector = new FaceDetectorAdapter(videoStreamImage, faceImage, camera);
+		FaceDetectorAdapter faceDetector = new FaceDetectorAdapter(videoStreamImage, faceImage);
 		while(true) {
 			faceDetector.detectFaces();
 		}
