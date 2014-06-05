@@ -1,0 +1,3 @@
+C:/Users/Lucas/Documents/Entwicklung/Eclipse/git/DialogModeling/DialogModeling/OpenCVAdapter/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/Lucas/Documents/Entwicklung/Eclipse/git/DialogModeling/DialogModeling/OpenCVAdapter/build/CMakeFiles/OpenCVAdapter.dir
+C:/Users/Lucas/Documents/Entwicklung/Eclipse/git/DialogModeling/DialogModeling/OpenCVAdapter/build/CMakeFiles/ZERO_CHECK.dir

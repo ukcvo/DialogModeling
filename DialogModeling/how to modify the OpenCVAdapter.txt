@@ -1,0 +1,5 @@
+1.) update the OpenCVAdapter.java
+2.) on the command line, go into the bin directory and execute the following command: javah -d ..\OpenCVAdapter edu.kit.anthropomatik.isl.DialogModeling.OpenCV.OpenCVAdapter
+3.) open CMake, have the "where is the source code" pointing to the OpenCVAdapter directory and the "where to build the binaries" pointing to the OpenCVAdapter\build directory; hit "Configure", then "Generate"
+4.) open the .sln file in the build subfolder and do your c/c++ coding
+5.) build the library; then copy-paste it into the lib directory

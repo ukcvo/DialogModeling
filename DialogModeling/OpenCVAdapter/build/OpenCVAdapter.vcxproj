@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{12119447-6384-4049-B1F6-E78B0857B8D3}</ProjectGUID>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>OpenCVAdapter</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+    <PropertyGroup>
+      <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Lucas\Documents\Entwicklung\Eclipse\git\DialogModeling\DialogModeling\OpenCVAdapter\build\Release\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">OpenCVAdapter.dir\Release\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">OpenCVAdapter</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.dll</TargetExt>
+      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
+    </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\Lucas\Documents\Entwicklung\opencv\build;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\include\opencv;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\core\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\flann\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\imgproc\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\highgui\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\features2d\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\calib3d\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\ml\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\video\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\legacy\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\objdetect\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\photo\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\gpu\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\ocl\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\nonfree\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\contrib\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\stitching\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\superres\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\ts\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\videostab\include;C:\Program Files\Java\jdk1.8.0_05\include;C:\Program Files\Java\jdk1.8.0_05\include\win32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat></DebugInformationFormat>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="Release";OpenCVAdapter_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\";OpenCVAdapter_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\Lucas\Documents\Entwicklung\opencv\build;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\include\opencv;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\core\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\flann\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\imgproc\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\highgui\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\features2d\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\calib3d\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\ml\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\video\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\legacy\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\objdetect\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\photo\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\gpu\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\ocl\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\nonfree\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\contrib\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\stitching\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\superres\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\ts\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\videostab\include;C:\Program Files\Java\jdk1.8.0_05\include;C:\Program Files\Java\jdk1.8.0_05\include\win32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\Lucas\Documents\Entwicklung\opencv\build;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\include\opencv;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\core\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\flann\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\imgproc\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\highgui\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\features2d\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\calib3d\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\ml\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\video\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\legacy\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\objdetect\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\photo\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\gpu\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\ocl\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\nonfree\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\contrib\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\stitching\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\superres\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\ts\include;C:\Users\Lucas\Documents\Entwicklung\opencv\sources\modules\videostab\include;C:\Program Files\Java\jdk1.8.0_05\include;C:\Program Files\Java\jdk1.8.0_05\include\win32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalOptions> /machine:x64 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_videostab249.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_video249.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_ts249.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_superres249.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_stitching249.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_photo249.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_ocl249.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_objdetect249.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_nonfree249.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_ml249.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_legacy249.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_imgproc249.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_highgui249.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_gpu249.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_flann249.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_features2d249.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_core249.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_contrib249.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_calib3d249.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_nonfree249.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_ocl249.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_gpu249.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_photo249.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_objdetect249.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_legacy249.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_video249.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_ml249.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_calib3d249.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_features2d249.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_highgui249.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_imgproc249.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_flann249.lib;C:\Users\Lucas\Documents\Entwicklung\opencv\build\lib\Release\opencv_core249.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <ImportLibrary>C:/Users/Lucas/Documents/Entwicklung/Eclipse/git/DialogModeling/DialogModeling/OpenCVAdapter/build/Release/OpenCVAdapter.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/Lucas/Documents/Entwicklung/Eclipse/git/DialogModeling/DialogModeling/OpenCVAdapter/build/Release/OpenCVAdapter.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version></Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/Lucas/Documents/Entwicklung/Eclipse/git/DialogModeling/DialogModeling/OpenCVAdapter/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\CMake 2.8\bin\cmake.exe" -HC:/Users/Lucas/Documents/Entwicklung/Eclipse/git/DialogModeling/DialogModeling/OpenCVAdapter -BC:/Users/Lucas/Documents/Entwicklung/Eclipse/git/DialogModeling/DialogModeling/OpenCVAdapter/build --check-stamp-file C:\Users\Lucas\Documents\Entwicklung\Eclipse\git\DialogModeling\DialogModeling\OpenCVAdapter\build\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/Lucas/Documents/Entwicklung/Eclipse/git/DialogModeling/DialogModeling/OpenCVAdapter/CMakeLists.txt;C:\Users\Lucas\Documents\Entwicklung\Eclipse\git\DialogModeling\DialogModeling\OpenCVAdapter\CMakeLists.txt;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeDetermineSystem.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeSystem.cmake.in;C:\Users\Lucas\Documents\Entwicklung\Eclipse\git\DialogModeling\DialogModeling\OpenCVAdapter\build\CMakeFiles\2.8.12.2\CMakeSystem.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeDetermineCCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeDetermineCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeDetermineCompilerId.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CompilerId\VS-10.vcxproj.in;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeClDeps.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeFindBinUtils.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCCompiler.cmake.in;C:\Users\Lucas\Documents\Entwicklung\Eclipse\git\DialogModeling\DialogModeling\OpenCVAdapter\build\CMakeFiles\2.8.12.2\CMakeCCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeDetermineCXXCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeDetermineCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-CXX.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeDetermineCompilerId.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CompilerId\VS-10.vcxproj.in;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeClDeps.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeFindBinUtils.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXCompiler.cmake.in;C:\Users\Lucas\Documents\Entwicklung\Eclipse\git\DialogModeling\DialogModeling\OpenCVAdapter\build\CMakeFiles\2.8.12.2\CMakeCXXCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeGenericSystem.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\WindowsPaths.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeDetermineRCCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeRCCompiler.cmake.in;C:\Users\Lucas\Documents\Entwicklung\Eclipse\git\DialogModeling\DialogModeling\OpenCVAdapter\build\CMakeFiles\2.8.12.2\CMakeRCCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeRCInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeTestRCCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeTestCCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeTestCompilerCommon.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeDetermineCompilerABI.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeParseImplicitLinkInfo.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCCompilerABI.c;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCCompiler.cmake.in;C:\Users\Lucas\Documents\Entwicklung\Eclipse\git\DialogModeling\DialogModeling\OpenCVAdapter\build\CMakeFiles\2.8.12.2\CMakeCCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXInformation.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\Platform\Windows-MSVC.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeTestCXXCompiler.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeTestCompilerCommon.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeDetermineCompilerABI.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeParseImplicitLinkInfo.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXCompilerABI.cpp;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeCXXCompiler.cmake.in;C:\Users\Lucas\Documents\Entwicklung\Eclipse\git\DialogModeling\DialogModeling\OpenCVAdapter\build\CMakeFiles\2.8.12.2\CMakeCXXCompiler.cmake;C:\Users\Lucas\Documents\Entwicklung\opencv\build\OpenCVConfig-version.cmake;C:\Users\Lucas\Documents\Entwicklung\opencv\build\OpenCVConfig.cmake;C:\Users\Lucas\Documents\Entwicklung\opencv\build\OpenCVModules.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindJNI.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\FindPackageMessage.cmake;C:\Program Files (x86)\CMake 2.8\share\cmake-2.8\Modules\CMakeParseArguments.cmake;C:\Users\Lucas\Documents\Entwicklung\Eclipse\git\DialogModeling\DialogModeling\OpenCVAdapter\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Lucas\Documents\Entwicklung\Eclipse\git\DialogModeling\DialogModeling\OpenCVAdapter\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\edu_kit_anthropomatik_isl_DialogModeling_OpenCV_OpenCVAdapter.h" />
+    <ClInclude Include="..\adapter_implementation.hpp" />
+    <ClCompile Include="..\edu_kit_anthropomatik_isl_DialogModeling_OpenCV_OpenCVAdapter.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="..\adapter_implementation.cpp"  />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:/Users/Lucas/Documents/Entwicklung/Eclipse/git/DialogModeling/DialogModeling/OpenCVAdapter/build/ZERO_CHECK.vcxproj">
+      <Project>ADF62201-3596-4377-9BC3-1B4117C955A9</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
