@@ -15,6 +15,22 @@ extern "C" {
 JNIEXPORT void JNICALL Java_edu_kit_anthropomatik_isl_DialogModeling_OpenCV_OpenCVAdapter_runOpenCVWindow
   (JNIEnv *, jobject);
 
+/*
+ * Class:     edu_kit_anthropomatik_isl_DialogModeling_OpenCV_OpenCVAdapter
+ * Method:    stopOpenCVWindow
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_edu_kit_anthropomatik_isl_DialogModeling_OpenCV_OpenCVAdapter_stopOpenCVWindow
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     edu_kit_anthropomatik_isl_DialogModeling_OpenCV_OpenCVAdapter
+ * Method:    getNumberOfDetectedFaces
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_edu_kit_anthropomatik_isl_DialogModeling_OpenCV_OpenCVAdapter_getNumberOfDetectedFaces
+  (JNIEnv *, jobject);
+
 #ifdef __cplusplus
 }
 #endif

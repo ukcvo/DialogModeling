@@ -5,11 +5,24 @@
 #include "opencv2/highgui/highgui.hpp"
 
 #include <iostream>
+#include <thread>
 
 using namespace std;
 using namespace cv;
 
+thread *windowThread;
+bool stopOpenCVLoop;
+
 void startOpenCVWindow() {
+	windowThread = new thread(displayOpenCVWindow);
+}
+
+void closeOpenCVWindow() {
+	stopOpenCVLoop = true;
+	windowThread->join();
+}
+
+void displayOpenCVWindow() {
 	cout << _CPP_DEBUG_PREFIX << "creating openCV window" << endl;
 	
 	vector<Mat> images;
@@ -27,8 +40,10 @@ void startOpenCVWindow() {
 		return;
 	}
 
+	stopOpenCVLoop = false;
+
 	Mat frame;
-	for (;;) {
+	while(!stopOpenCVLoop) {
 		cap >> frame;
 		Mat original = frame.clone();
 		
@@ -38,6 +53,8 @@ void startOpenCVWindow() {
 		vector< Rect_<int> > faces;
 		haar_cascade.detectMultiScale(gray, faces);
 		
+		numberOfDetectedFaces = faces.size();
+
 		for (int i = 0; i < faces.size(); i++) {
 			Rect face_i = faces[i];
 			

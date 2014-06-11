@@ -8,7 +8,13 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+	long numberOfDetectedFaces;
+
 	void startOpenCVWindow();
+
+	void closeOpenCVWindow();
+
+	void displayOpenCVWindow();
 #ifdef __cplusplus
 }
 #endif

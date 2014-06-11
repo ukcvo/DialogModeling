@@ -9,9 +9,21 @@ public class OpenCVAdapter {
 	
 	private native void runOpenCVWindow();
 	
-	public static void main(String[] args) {
-		System.out.println("calling C++ functionality...");
-		new OpenCVAdapter().runOpenCVWindow();
+	private native void stopOpenCVWindow();
+	
+	private native int getNumberOfDetectedFaces();
+	
+	
+	public static void main(String[] args) throws InterruptedException {
+		OpenCVAdapter adapter = new OpenCVAdapter();
+		System.out.println("opening window...");
+		adapter.runOpenCVWindow();
+		for (int i = 0; i < 10; i++) {
+			Thread.sleep(1000);
+			System.out.println(adapter.getNumberOfDetectedFaces());
+		}
+		System.out.println("closing window...");
+		adapter.stopOpenCVWindow();
 		System.out.println("done");
 	}
 }
