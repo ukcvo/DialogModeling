@@ -15,6 +15,8 @@ extern "C" {
 	void closeOpenCVWindow();
 
 	void displayOpenCVWindow();
+
+	void storeCurrentFace();
 #ifdef __cplusplus
 }
 #endif

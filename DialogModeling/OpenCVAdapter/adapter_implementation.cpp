@@ -12,6 +12,7 @@ using namespace cv;
 
 thread *windowThread;
 bool stopOpenCVLoop;
+Mat currentFace;
 
 void startOpenCVWindow() {
 	windowThread = new thread(displayOpenCVWindow);
@@ -20,6 +21,15 @@ void startOpenCVWindow() {
 void closeOpenCVWindow() {
 	stopOpenCVLoop = true;
 	windowThread->join();
+}
+
+void storeCurrentFace() {
+	static int i = 0;
+	ostringstream buf;
+	
+	buf << "img" << i++ << ".jpg";
+	imwrite(buf.str(), currentFace);
+	cout << _CPP_DEBUG_PREFIX << "stored " << buf.str() << endl;
 }
 
 void displayOpenCVWindow() {
@@ -54,20 +64,30 @@ void displayOpenCVWindow() {
 		haar_cascade.detectMultiScale(gray, faces);
 		
 		numberOfDetectedFaces = faces.size();
+		Rect largestFace = *(new Rect(0, 0, 0, 0));
 
 		for (int i = 0; i < faces.size(); i++) {
 			Rect face_i = faces[i];
 			
 			// highlight face
 			rectangle(original, face_i, CV_RGB(0, 255, 0), 1);
+
+			if (face_i.area() > largestFace.area())
+				largestFace = face_i;
 		}
 		
+		Mat face = gray(largestFace);
+		Mat face_resized;
+		cv::resize(face, face_resized, Size(100, 100), 1.0, 1.0, INTER_CUBIC);
+
+		currentFace = face_resized;
+
 		imshow("OpenCV Face Detection", original);
 		
 		// exit on Esc
 		char key = (char)waitKey(20);
-		if (key == 27)
-			break;
+		//if (key == 27)
+		//	break;
 	}
 
 	return;
