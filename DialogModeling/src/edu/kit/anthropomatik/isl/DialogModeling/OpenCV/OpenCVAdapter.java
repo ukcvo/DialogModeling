@@ -26,7 +26,7 @@ public class OpenCVAdapter {
 		System.out.println("opening window...");
 		adapter.runOpenCVWindow();
 		
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 15; i++) {
 			br.readLine();
 			adapter.storeCurrentFace();
 		}

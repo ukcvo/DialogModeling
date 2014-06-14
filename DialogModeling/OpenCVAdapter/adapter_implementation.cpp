@@ -76,11 +76,13 @@ void displayOpenCVWindow() {
 				largestFace = face_i;
 		}
 		
-		Mat face = gray(largestFace);
-		Mat face_resized;
-		cv::resize(face, face_resized, Size(100, 100), 1.0, 1.0, INTER_CUBIC);
+		if (largestFace.area() > 0) {
+			Mat face = gray(largestFace);
+			Mat face_resized;
+			cv::resize(face, face_resized, Size(100, 100), 1.0, 1.0, INTER_CUBIC);
 
-		currentFace = face_resized;
+			currentFace = face_resized;
+		}
 
 		imshow("OpenCV Face Detection", original);
 		
