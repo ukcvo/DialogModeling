@@ -34,10 +34,10 @@ JNIEXPORT jint JNICALL Java_edu_kit_anthropomatik_isl_DialogModeling_OpenCV_Open
 /*
  * Class:     edu_kit_anthropomatik_isl_DialogModeling_OpenCV_OpenCVAdapter
  * Method:    storeCurrentFace
- * Signature: ()V
+ * Signature: (I)V
  */
 JNIEXPORT void JNICALL Java_edu_kit_anthropomatik_isl_DialogModeling_OpenCV_OpenCVAdapter_storeCurrentFace
-  (JNIEnv *, jobject);
+  (JNIEnv *, jobject, jint);
 
 #ifdef __cplusplus
 }

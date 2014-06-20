@@ -2,16 +2,18 @@ package edu.kit.anthropomatik.isl.DialogModeling.UserModel;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
 public class SerializationHelperTest {
 
 	private List<User> users;
-	private static String FILE_NAME = "users.usr";
+	private static String FILE_NAME = "users_test.usr";
 	
 	@Before
 	public void setup() {
@@ -54,4 +56,9 @@ public class SerializationHelperTest {
 		assertEquals(usersRead.size(), diana.getId());
 	}
 
+	@AfterClass
+	public static void teardown() {
+		File f = new File(FILE_NAME);
+		f.delete();
+	}
 }

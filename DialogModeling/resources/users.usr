@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.7.0_45" class="java.beans.XMLDecoder">
+ <object class="java.util.ArrayList">
+  <void method="add">
+   <object class="edu.kit.anthropomatik.isl.DialogModeling.UserModel.User">
+    <void property="currentProject">
+     <object class="edu.kit.anthropomatik.isl.DialogModeling.UserModel.UserProject">
+      <void property="projectName">
+       <string>OpenCV</string>
+      </void>
+      <void property="projectState">
+       <object class="java.lang.Enum" method="valueOf">
+        <class>edu.kit.anthropomatik.isl.DialogModeling.UserModel.UserProjectState</class>
+        <string>GOOD</string>
+       </object>
+      </void>
+     </object>
+    </void>
+    <void property="lastTimeSeen">
+     <object class="java.util.Date">
+      <long>1403263141798</long>
+     </object>
+    </void>
+    <void property="name">
+     <string>Lucas</string>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="edu.kit.anthropomatik.isl.DialogModeling.UserModel.User">
+    <void property="currentProject">
+     <object class="edu.kit.anthropomatik.isl.DialogModeling.UserModel.UserProject">
+      <void property="projectName">
+       <string>Speech Recognition</string>
+      </void>
+      <void property="projectState">
+       <object class="java.lang.Enum" method="valueOf">
+        <class>edu.kit.anthropomatik.isl.DialogModeling.UserModel.UserProjectState</class>
+        <string>NEW</string>
+       </object>
+      </void>
+     </object>
+    </void>
+    <void property="id">
+     <int>1</int>
+    </void>
+    <void property="lastTimeSeen">
+     <object class="java.util.Date">
+      <long>1403263141798</long>
+     </object>
+    </void>
+    <void property="name">
+     <string>Andre</string>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>

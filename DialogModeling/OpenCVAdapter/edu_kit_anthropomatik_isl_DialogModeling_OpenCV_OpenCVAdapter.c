@@ -19,8 +19,8 @@ JNIEXPORT jint JNICALL Java_edu_kit_anthropomatik_isl_DialogModeling_OpenCV_Open
 	return numberOfDetectedFaces;
 }
 
-JNIEXPORT void JNICALL Java_edu_kit_anthropomatik_isl_DialogModeling_OpenCV_OpenCVAdapter_storeCurrentFace(JNIEnv *env, jobject thisObj) {
+JNIEXPORT void JNICALL Java_edu_kit_anthropomatik_isl_DialogModeling_OpenCV_OpenCVAdapter_storeCurrentFace(JNIEnv *env, jobject thisObj, jint userID) {
 	printf("%sstoring current face...\n", _CPP_DEBUG_PREFIX);
-	storeCurrentFace();
+	storeCurrentFace(userID);
 	return;
 }

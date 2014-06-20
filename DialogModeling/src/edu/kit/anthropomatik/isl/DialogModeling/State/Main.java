@@ -1,9 +1,16 @@
 package edu.kit.anthropomatik.isl.DialogModeling.State;
 
+import java.util.List;
+
 import org.customsoft.stateless4j.*;
 import org.customsoft.stateless4j.delegates.Action;
 
+import edu.kit.anthropomatik.isl.DialogModeling.UserModel.SerializationHelper;
+import edu.kit.anthropomatik.isl.DialogModeling.UserModel.User;
+
 public class Main {
+
+	private static final String USER_FILE_NAME = "./resources/users.usr";
 
 	public enum State {
 		IDLE, RECOGNIZE_USER, SELF_TALK, GREET_USER, ASK_FOR_NAME, SMALL_TALK, 
@@ -59,6 +66,8 @@ public class Main {
 				doThisAndThat();
 			}
 		};
+		
+		List<User> users = SerializationHelper.loadUsers(USER_FILE_NAME);
 		
 		StateMachine<State, Trigger> robotInteraction = new StateMachine<State, Trigger>(State.IDLE);
 
@@ -120,6 +129,7 @@ public class Main {
 		
 		System.out.println("Current State: " +robotInteraction.getState());
 
+		SerializationHelper.storeUsers(users, USER_FILE_NAME);
 	}
 
 	protected static void recognizeName() {

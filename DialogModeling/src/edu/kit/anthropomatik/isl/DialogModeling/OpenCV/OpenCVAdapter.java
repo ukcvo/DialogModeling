@@ -17,7 +17,7 @@ public class OpenCVAdapter {
 	
 	private native int getNumberOfDetectedFaces();
 	
-	private native void storeCurrentFace();
+	private native void storeCurrentFace(int userID);
 	
 	public static void main(String[] args) throws InterruptedException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -28,7 +28,7 @@ public class OpenCVAdapter {
 		
 		for (int i = 0; i < 15; i++) {
 			br.readLine();
-			adapter.storeCurrentFace();
+			adapter.storeCurrentFace(2);
 		}
 		System.out.println("closing window...");
 		adapter.stopOpenCVWindow();
