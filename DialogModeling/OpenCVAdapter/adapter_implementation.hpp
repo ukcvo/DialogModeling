@@ -10,6 +10,10 @@ extern "C" {
 #endif
 	long numberOfDetectedFaces;
 
+	long recognizedUserID;
+
+	long recognitionConfidence;
+
 	void startOpenCVWindow();
 
 	void closeOpenCVWindow();

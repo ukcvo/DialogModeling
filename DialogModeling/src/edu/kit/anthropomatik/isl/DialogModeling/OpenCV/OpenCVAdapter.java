@@ -17,6 +17,10 @@ public class OpenCVAdapter {
 	
 	private native int getNumberOfDetectedFaces();
 	
+	private native int getRecognizedUserID();
+	
+	private native int getRecognitionConfidence();
+	
 	private native void storeCurrentFace(int userID);
 	
 	public static void main(String[] args) throws InterruptedException, IOException {
@@ -25,10 +29,9 @@ public class OpenCVAdapter {
 		OpenCVAdapter adapter = new OpenCVAdapter();
 		System.out.println("opening window...");
 		adapter.runOpenCVWindow();
-		
 		for (int i = 0; i < 15; i++) {
 			br.readLine();
-			adapter.storeCurrentFace(2);
+			adapter.storeCurrentFace(adapter.getRecognizedUserID());
 		}
 		System.out.println("closing window...");
 		adapter.stopOpenCVWindow();

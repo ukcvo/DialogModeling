@@ -33,6 +33,22 @@ JNIEXPORT jint JNICALL Java_edu_kit_anthropomatik_isl_DialogModeling_OpenCV_Open
 
 /*
  * Class:     edu_kit_anthropomatik_isl_DialogModeling_OpenCV_OpenCVAdapter
+ * Method:    getRecognizedUserID
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_edu_kit_anthropomatik_isl_DialogModeling_OpenCV_OpenCVAdapter_getRecognizedUserID
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     edu_kit_anthropomatik_isl_DialogModeling_OpenCV_OpenCVAdapter
+ * Method:    getRecognitionConfidence
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_edu_kit_anthropomatik_isl_DialogModeling_OpenCV_OpenCVAdapter_getRecognitionConfidence
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     edu_kit_anthropomatik_isl_DialogModeling_OpenCV_OpenCVAdapter
  * Method:    storeCurrentFace
  * Signature: (I)V
  */
