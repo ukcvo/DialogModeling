@@ -1,0 +1,7 @@
+package edu.kit.anthropomatik.isl.DialogModeling.State;
+
+public enum State {
+	INIT, IDLE, RECOGNIZE_USER, SELF_TALK, GREET_USER, ASK_FOR_NAME, SMALL_TALK, 
+	COLLECT_USER_DATA, ASK_FOR_HELP, INSULT_USER, WAITING_FOR_ELEVATOR,
+	SAY_GOODBYE
+}

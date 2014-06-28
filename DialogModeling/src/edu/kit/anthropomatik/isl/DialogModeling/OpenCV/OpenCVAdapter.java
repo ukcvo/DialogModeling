@@ -11,17 +11,17 @@ public class OpenCVAdapter {
 
 	static {System.loadLibrary("OpenCVAdapter");}
 	
-	private native void runOpenCVWindow();
+	public native void runOpenCVWindow();
 	
-	private native void stopOpenCVWindow();
+	public native void stopOpenCVWindow();
 	
-	private native int getNumberOfDetectedFaces();
+	public native int getNumberOfDetectedFaces();
 	
-	private native int getRecognizedUserID();
+	public native int getRecognizedUserID();
 	
-	private native int getRecognitionConfidence();
+	public native int getRecognitionConfidence();
 	
-	private native void storeCurrentFace(int userID);
+	public native void storeCurrentFace(int userID);
 	
 	public static void main(String[] args) throws InterruptedException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

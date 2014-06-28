@@ -5,6 +5,12 @@ import java.util.List;
 import org.customsoft.stateless4j.*;
 import org.customsoft.stateless4j.delegates.Action;
 
+import edu.kit.anthropomatik.isl.DialogModeling.Input.ConsoleInput;
+import edu.kit.anthropomatik.isl.DialogModeling.Input.IInput;
+import edu.kit.anthropomatik.isl.DialogModeling.Input.InputChunk;
+import edu.kit.anthropomatik.isl.DialogModeling.OpenCV.OpenCVAdapter;
+import edu.kit.anthropomatik.isl.DialogModeling.Output.ConsoleOutput;
+import edu.kit.anthropomatik.isl.DialogModeling.Output.IOutput;
 import edu.kit.anthropomatik.isl.DialogModeling.UserModel.SerializationHelper;
 import edu.kit.anthropomatik.isl.DialogModeling.UserModel.User;
 
@@ -12,22 +18,23 @@ public class Main {
 
 	private static final String USER_FILE_NAME = "./resources/users.usr";
 
-	public enum State {
-		IDLE, RECOGNIZE_USER, SELF_TALK, GREET_USER, ASK_FOR_NAME, SMALL_TALK, 
-		COLLECT_USER_DATA, ASK_FOR_HELP, INSULT_USER, WAITING_FOR_ELEVATOR,
-		SAY_GOODBYE
-	}
+	private List<User> users;
 	
-	public enum Trigger {
-		NO_FACE_DETECTED, FACE_DETECTED, USER_RECOGNIZED, USER_NOT_RECOGNIZED,
-		USER_UNKNOWN, NOT_UNDERSTOOD, USER_GREETS, WANT_HELP, USER_HELPING, USER_NOT_HELPING,
-		JOB_DONE, DIALOG_DONE, SELF_TALK_OVER
-	}
-
-	public static void main(String[] args) {
+	private StateMachine<State, Trigger> robotInteraction;
+	
+	private OpenCVAdapter openCVAdapter;
+	
+	private User currentUser;
+	
+	private IOutput output;
+	
+	private IInput input;
+	
+	public Main() {
 		Action callMultiModalInputCheck = new Action() {
 			@Override
 			public void doIt() {
+				outputCurrentState();
 				checkMultimodalInput();
 			}
 		};
@@ -35,6 +42,7 @@ public class Main {
 		Action callSelfTalk = new Action() {
 			@Override
 			public void doIt() {
+				outputCurrentState();
 				doSelfTalk();
 			}
 		};
@@ -42,6 +50,7 @@ public class Main {
 		Action callUserRecognition = new Action() {
 			@Override
 			public void doIt() {
+				outputCurrentState();
 				recognizeUser();
 			}
 		};
@@ -49,6 +58,7 @@ public class Main {
 		Action callNameRecognition = new Action() {
 			@Override
 			public void doIt() {
+				outputCurrentState();
 				recognizeName();
 			}
 		};
@@ -56,6 +66,7 @@ public class Main {
 		Action callUserInteraction = new Action() {
 			@Override
 			public void doIt() {
+				outputCurrentState();
 				interactWithUser();
 			}
 		};
@@ -63,15 +74,24 @@ public class Main {
 		Action callThisAndThat = new Action() {
 			@Override
 			public void doIt() {
+				outputCurrentState();
 				doThisAndThat();
 			}
 		};
 		
-		List<User> users = SerializationHelper.loadUsers(USER_FILE_NAME);
+		users = SerializationHelper.loadUsers(USER_FILE_NAME);
+		openCVAdapter = new OpenCVAdapter();
 		
-		StateMachine<State, Trigger> robotInteraction = new StateMachine<State, Trigger>(State.IDLE);
+		// TODO: replace this with our actual speech I/O
+		input = new ConsoleInput();
+		output = new ConsoleOutput();
+		
+		robotInteraction = new StateMachine<State, Trigger>(State.INIT);
 
 		try {
+			robotInteraction.Configure(State.INIT)
+			.Permit(Trigger.INITIALIZED, State.IDLE);
+			
 			robotInteraction.Configure(State.IDLE)
 			.OnEntry(callMultiModalInputCheck)
 			.Permit(Trigger.NO_FACE_DETECTED, State.SELF_TALK)
@@ -120,46 +140,96 @@ public class Main {
 			.OnEntry(callNameRecognition)
 			.Permit(Trigger.DIALOG_DONE, State.IDLE);
 			
-			robotInteraction.Fire(Trigger.FACE_DETECTED);
-			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
+	}
+
+	private void outputCurrentState() {
 		System.out.println("Current State: " +robotInteraction.getState());
-
-		SerializationHelper.storeUsers(users, USER_FILE_NAME);
-	}
-
-	protected static void recognizeName() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	protected static void doSelfTalk() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	protected static void doThisAndThat() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	protected static void recognizeUser() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	protected static void checkMultimodalInput() {
-		// TODO Auto-generated method stub
-		
 	}
 	
-	protected static void interactWithUser() {
+	public void shutDown() {
+		openCVAdapter.stopOpenCVWindow();
+		SerializationHelper.storeUsers(users, USER_FILE_NAME);
+	}
+	
+	public void run() {
+		openCVAdapter.runOpenCVWindow();
+		try {
+			robotInteraction.Fire(Trigger.INITIALIZED);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	protected void recognizeName() {
+		// TODO Auto-generated method stub
+		while (true) { }
+	}
+
+	protected void doSelfTalk() {
 		// TODO Auto-generated method stub
 		
 	}
 
+	protected void doThisAndThat() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected void recognizeUser() {
+		
+		int userID = openCVAdapter.getRecognizedUserID();
+		int confidence = openCVAdapter.getRecognitionConfidence();
+		
+		if (userID >= 0 && confidence < 700) {
+			currentUser = users.get(userID);
+			System.out.println("Recognized user: " + currentUser.toString());
+		} else {
+			currentUser = null;
+		}
+		
+		try {
+			if (currentUser != null) {
+				robotInteraction.Fire(Trigger.USER_RECOGNIZED);
+			} else {
+				robotInteraction.Fire(Trigger.USER_NOT_RECOGNIZED);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	protected void checkMultimodalInput() {
+		
+		currentUser = null;
+		
+		boolean faceDetected = false;
+		
+		while (!faceDetected) {
+			faceDetected = (openCVAdapter.getNumberOfDetectedFaces() > 0);
+		}
+		
+		try {
+			robotInteraction.Fire(Trigger.FACE_DETECTED);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	protected void interactWithUser() {
+		// TODO Auto-generated method stub
+		while(true){}
+	}
+
+	public static void main(String[] args) {
+		
+		Main myMain = new Main();
+		myMain.run();
+		myMain.shutDown();
+	}
 }

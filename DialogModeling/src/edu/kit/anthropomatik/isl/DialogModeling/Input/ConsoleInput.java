@@ -8,9 +8,13 @@ import java.util.List;
 
 public class ConsoleInput implements IInput {
 
+	private static final String INPUT_PREFIX = "IN>>";
+	
 	@Override
 	public InputChunk getInput() {
 
+		System.out.print(INPUT_PREFIX);
+		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		try {
 			String rawString = br.readLine();
