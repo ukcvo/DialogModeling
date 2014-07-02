@@ -182,10 +182,9 @@ public class Main {
 
 	protected void recognizeUser() {
 		
-		int userID = openCVAdapter.getRecognizedUserID();
-		int confidence = openCVAdapter.getRecognitionConfidence();
+		int userID = openCVAdapter.getSmoothedUserID();
 		
-		if (userID >= 0 && confidence < 700) {
+		if (userID >= 0){ 
 			currentUser = users.get(userID);
 			System.out.println("Recognized user: " + currentUser.toString());
 		} else {
@@ -211,7 +210,7 @@ public class Main {
 		boolean faceDetected = false;
 		
 		while (!faceDetected) {
-			faceDetected = (openCVAdapter.getNumberOfDetectedFaces() > 0);
+			faceDetected = (openCVAdapter.getSmoothedNumberOfDetectedFaces() > 0.5);
 		}
 		
 		try {

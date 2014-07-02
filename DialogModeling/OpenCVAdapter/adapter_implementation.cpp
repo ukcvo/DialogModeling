@@ -53,7 +53,8 @@ void read_csv(const string& filename, vector<Mat>& images, vector<int>& labels, 
 }
 
 void trainRecognizer() {
-	faceRecognizer = createFisherFaceRecognizer(0, 1000);
+	//faceRecognizer = createEigenFaceRecognizer(80, 4600); // possible alternative
+	faceRecognizer = createLBPHFaceRecognizer(1, 8, 8, 8, 100); // worked best so far
 	faceRecognizer->train(images, labels);
 }
 
