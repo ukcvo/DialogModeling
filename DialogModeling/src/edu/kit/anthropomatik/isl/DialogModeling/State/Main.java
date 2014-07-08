@@ -1,13 +1,18 @@
 package edu.kit.anthropomatik.isl.DialogModeling.State;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
-import org.customsoft.stateless4j.*;
+import javazoom.jl.player.Player;
+
+import org.customsoft.stateless4j.StateMachine;
 import org.customsoft.stateless4j.delegates.Action;
+
+import com.darkprograms.speech.synthesiser.Synthesiser;
 
 import edu.kit.anthropomatik.isl.DialogModeling.Input.ConsoleInput;
 import edu.kit.anthropomatik.isl.DialogModeling.Input.IInput;
-import edu.kit.anthropomatik.isl.DialogModeling.Input.InputChunk;
 import edu.kit.anthropomatik.isl.DialogModeling.OpenCV.OpenCVAdapter;
 import edu.kit.anthropomatik.isl.DialogModeling.Output.ConsoleOutput;
 import edu.kit.anthropomatik.isl.DialogModeling.Output.IOutput;
@@ -222,6 +227,21 @@ public class Main {
 	
 	protected void interactWithUser() {
 		// TODO Auto-generated method stub
+		Synthesiser synth = new Synthesiser(Synthesiser.LANG_UK_ENGLISH);
+		
+		InputStream data;
+		try {
+			data = synth.getMP3Data("Hello " + currentUser.getName() + "!");
+
+			//TODO Use any Java MP3 Implementation to play back the AudioFile from the InputStream.
+			
+			Player player = new Player(data);
+			player.play();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		while(true){}
 	}
 
