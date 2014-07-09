@@ -471,7 +471,13 @@ public class Recognizer {
 			System.out.println("Google Response: " + response.getResponse());
 			if (response.getConfidence() != null)
 				System.out.println("Google is " + Double.parseDouble(response.getConfidence())*100 + "% confident in" + " the reply");
-			return response.getResponse();
+			String res= response.getResponse();
+			if (res==null){
+				res="";
+			}else{
+				res= response.getResponse();
+			}
+			return res;
 		} catch (Exception ex) {
 			// TODO Handle how to respond if Google cannot be contacted
 			System.out.println("ERROR: Google cannot be contacted");

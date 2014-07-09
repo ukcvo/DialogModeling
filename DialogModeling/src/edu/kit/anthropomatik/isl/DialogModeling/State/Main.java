@@ -1,13 +1,16 @@
 package edu.kit.anthropomatik.isl.DialogModeling.State;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
 import org.customsoft.stateless4j.StateMachine;
 import org.customsoft.stateless4j.delegates.Action;
 
+import com.darkprograms.speech.recognizer.Recognizer;
 import com.darkprograms.speech.synthesizer.Synthesizer;
 
 import edu.kit.anthropomatik.isl.DialogModeling.Input.ConsoleInput;
@@ -244,6 +247,47 @@ public class Main {
 	protected void doSmallTalk() {
 		// TODO Auto-generated method stub
 		try {
+			Synthesizer.synthesize("How is your work going right now?");
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (JavaLayerException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		String answer= "";
+		
+		try {
+			answer= Recognizer.recognize();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		if (answer.equals("well")){
+			try {
+				Synthesizer.synthesize("Oh, that's nice.");
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (JavaLayerException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}else {
+			try {
+				Synthesizer.synthesize("Oh, well");
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (JavaLayerException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
+		try {
 			Thread.sleep(2000);
 			robotInteraction.Fire(Trigger.WANT_HELP);
 		} catch (Exception e) {
@@ -265,6 +309,25 @@ public class Main {
 
 	protected void recognizeName() {
 		// TODO Auto-generated method stub
+		try {
+			Synthesizer.synthesize("Maybe I don't know you yet. What is your name?");
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (JavaLayerException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		String userName="";
+		
+		try {
+			userName= Recognizer.recognize();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		try {
 			Thread.sleep(2000);
 			if (Math.random() > 0.5)
@@ -329,20 +392,16 @@ public class Main {
 	}
 	
 	protected void greetUser() {
-		// TODO Auto-generated method stub
-		Synthesizer synth = new Synthesizer(Synthesizer.LANG_UK_ENGLISH);
 		
-		InputStream data;
+		
 		try {
-			data = synth.getMP3Data("Hello " + currentUser.getName() + "!");
-
-			//TODO Use any Java MP3 Implementation to play back the AudioFile from the InputStream.
-			
-			Player player = new Player(data);
-			player.play();
-		} catch (Exception e) {
+			Synthesizer.synthesize("Hello"+ currentUser.getName() +"!");
+		} catch (IOException e1) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e1.printStackTrace();
+		} catch (JavaLayerException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 		
 		try {
