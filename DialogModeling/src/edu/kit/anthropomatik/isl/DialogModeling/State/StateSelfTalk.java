@@ -1,18 +1,22 @@
 package edu.kit.anthropomatik.isl.DialogModeling.State;
 
-import org.customsoft.stateless4j.StateMachine;
-
 public class StateSelfTalk extends StateAction {
 
-	protected StateSelfTalk(StateMachine<State, Trigger> stateMachine) {
-		super(stateMachine);
+	protected StateSelfTalk(Main main) {
+		super(main);
 	}
 
 	@Override
 	public void doIt() {
 		outputCurrentState();
-		// TODO copy-paste doSelfTalk()
 
+		try {
+			Thread.sleep(2000);
+			main.getStateMachine().Fire(Trigger.SELF_TALK_OVER);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

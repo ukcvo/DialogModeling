@@ -1,17 +1,22 @@
 package edu.kit.anthropomatik.isl.DialogModeling.State;
 
-import org.customsoft.stateless4j.StateMachine;
-
 public class StateCollectUserData extends StateAction {
 
-	protected StateCollectUserData(StateMachine<State, Trigger> stateMachine) {
-		super(stateMachine);
+	protected StateCollectUserData(Main main) {
+		super(main);
 	}
 
 	@Override
 	public void doIt() {
 		outputCurrentState();
-		// TODO copy-paste collectUserData()
+
+		try {
+			Thread.sleep(2000);
+			main.getStateMachine().Fire(Trigger.USER_RECOGNIZED);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
