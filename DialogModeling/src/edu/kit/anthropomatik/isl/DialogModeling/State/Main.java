@@ -172,7 +172,7 @@ public class Main {
 			robotInteraction.Configure(State.ASK_FOR_HELP)
 			.OnEntry(callAskForHelp)
 			.Permit(Trigger.USER_HELPING, State.WAITING_FOR_ELEVATOR)
-			.Permit(Trigger.USER_NOT_HELPING, State.SAY_GOODBYE);
+			.Permit(Trigger.USER_NOT_HELPING, State.INSULT_USER);
 			
 			robotInteraction.Configure(State.WAITING_FOR_ELEVATOR)
 			.OnEntry(callWaitForElevator)
