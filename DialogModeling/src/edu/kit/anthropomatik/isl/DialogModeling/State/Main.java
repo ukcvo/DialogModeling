@@ -1,6 +1,5 @@
 package edu.kit.anthropomatik.isl.DialogModeling.State;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
@@ -36,6 +35,7 @@ public class Main {
 	private IInput input;
 	
 	public Main() {
+		
 		Action callMultiModalInputCheck = new Action() {
 			@Override
 			public void doIt() {
@@ -68,19 +68,60 @@ public class Main {
 			}
 		};
 		
-		Action callUserInteraction = new Action() {
+		Action callCollectUserData = new Action() {
 			@Override
 			public void doIt() {
 				outputCurrentState();
-				interactWithUser();
+				collectUserData();
 			}
 		};
 		
-		Action callThisAndThat = new Action() {
+		Action callUserGreeting = new Action() {
 			@Override
 			public void doIt() {
 				outputCurrentState();
-				doThisAndThat();
+				greetUser();
+			}
+		};
+		
+		Action callSmallTalk = new Action() {
+			@Override
+			public void doIt() {
+				outputCurrentState();
+				doSmallTalk();
+			}
+		};
+		
+		
+		Action callAskForHelp = new Action() {
+			@Override
+			public void doIt() {
+				outputCurrentState();
+				askForHelp();
+			}
+		};
+		
+		Action callInsultUser = new Action() {
+			@Override
+			public void doIt() {
+				outputCurrentState();
+				insultUser();
+			}
+		};
+		
+		Action callWaitForElevator = new Action() {
+			@Override
+			public void doIt() {
+				outputCurrentState();
+				waitForElevator();
+			}
+		};
+		
+		Action callSayGoodBye = new Action() {
+			@Override
+			public void doIt() {
+				outputCurrentState();
+				sayGoodbyeToUser();
 			}
 		};
 		
@@ -103,7 +144,7 @@ public class Main {
 			.Permit(Trigger.FACE_DETECTED, State.RECOGNIZE_USER);
 			
 			robotInteraction.Configure(State.SELF_TALK)
-			.OnEntry(callMultiModalInputCheck)
+			.OnEntry(callSelfTalk)
 			.Permit(Trigger.SELF_TALK_OVER, State.IDLE);
 						
 			robotInteraction.Configure(State.RECOGNIZE_USER)
@@ -117,32 +158,32 @@ public class Main {
 			.Permit(Trigger.USER_UNKNOWN, State.COLLECT_USER_DATA);
 			
 			robotInteraction.Configure(State.COLLECT_USER_DATA)
-			.OnEntry(callNameRecognition)
+			.OnEntry(callCollectUserData)
 			.Permit(Trigger.USER_RECOGNIZED, State.GREET_USER);
 			
 			robotInteraction.Configure(State.GREET_USER)
-			.OnEntry(callUserInteraction)
+			.OnEntry(callUserGreeting)
 			.Permit(Trigger.USER_GREETS, State.SMALL_TALK);
 			
 			robotInteraction.Configure(State.SMALL_TALK)
-			.OnEntry(callNameRecognition)
+			.OnEntry(callSmallTalk)
 			.Permit(Trigger.WANT_HELP, State.ASK_FOR_HELP);
 			
 			robotInteraction.Configure(State.ASK_FOR_HELP)
-			.OnEntry(callNameRecognition)
+			.OnEntry(callAskForHelp)
 			.Permit(Trigger.USER_HELPING, State.WAITING_FOR_ELEVATOR)
 			.Permit(Trigger.USER_NOT_HELPING, State.SAY_GOODBYE);
 			
 			robotInteraction.Configure(State.WAITING_FOR_ELEVATOR)
-			.OnEntry(callNameRecognition)
+			.OnEntry(callWaitForElevator)
 			.Permit(Trigger.JOB_DONE, State.SAY_GOODBYE);
 			
 			robotInteraction.Configure(State.INSULT_USER)
-			.OnEntry(callNameRecognition)
+			.OnEntry(callInsultUser)
 			.Permit(Trigger.JOB_DONE, State.SAY_GOODBYE);
 			
 			robotInteraction.Configure(State.SAY_GOODBYE)
-			.OnEntry(callNameRecognition)
+			.OnEntry(callSayGoodBye)
 			.Permit(Trigger.DIALOG_DONE, State.IDLE);
 			
 		} catch (Exception e) {
@@ -152,37 +193,99 @@ public class Main {
 
 	}
 
-	private void outputCurrentState() {
-		System.out.println("Current State: " +robotInteraction.getState());
-	}
-	
-	public void shutDown() {
-		openCVAdapter.stopOpenCVWindow();
-		SerializationHelper.storeUsers(users, USER_FILE_NAME);
-	}
-	
-	public void run() {
-		openCVAdapter.runOpenCVWindow();
+	protected void sayGoodbyeToUser() {
+		// TODO Auto-generated method stub
+		
 		try {
-			robotInteraction.Fire(Trigger.INITIALIZED);
+			Thread.sleep(2000);
+			robotInteraction.Fire(Trigger.DIALOG_DONE);
 		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
+	protected void waitForElevator() {
+		// TODO Auto-generated method stub
+		try {
+			Thread.sleep(2000);
+			robotInteraction.Fire(Trigger.JOB_DONE);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	protected void insultUser() {
+		// TODO Auto-generated method stub
+		try {
+			Thread.sleep(2000);
+			robotInteraction.Fire(Trigger.JOB_DONE);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	protected void askForHelp() {
+		// TODO Auto-generated method stub
+		try {
+			Thread.sleep(2000);
+			if (Math.random() > 0.5)
+				robotInteraction.Fire(Trigger.USER_HELPING);
+			else
+				robotInteraction.Fire(Trigger.USER_NOT_HELPING);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	protected void doSmallTalk() {
+		// TODO Auto-generated method stub
+		try {
+			Thread.sleep(2000);
+			robotInteraction.Fire(Trigger.WANT_HELP);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	protected void collectUserData() {
+		// TODO Auto-generated method stub
+		try {
+			Thread.sleep(2000);
+			robotInteraction.Fire(Trigger.USER_RECOGNIZED);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	protected void recognizeName() {
 		// TODO Auto-generated method stub
-		while (true) { }
+		try {
+			Thread.sleep(2000);
+			if (Math.random() > 0.5)
+				robotInteraction.Fire(Trigger.USER_RECOGNIZED);
+			else
+				robotInteraction.Fire(Trigger.USER_UNKNOWN);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	protected void doSelfTalk() {
 		// TODO Auto-generated method stub
-		
-	}
-
-	protected void doThisAndThat() {
-		// TODO Auto-generated method stub
-		
+		try {
+			Thread.sleep(2000);
+			robotInteraction.Fire(Trigger.SELF_TALK_OVER);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	protected void recognizeUser() {
@@ -225,7 +328,7 @@ public class Main {
 		}
 	}
 	
-	protected void interactWithUser() {
+	protected void greetUser() {
 		// TODO Auto-generated method stub
 		Synthesizer synth = new Synthesizer(Synthesizer.LANG_UK_ENGLISH);
 		
@@ -242,7 +345,31 @@ public class Main {
 			e.printStackTrace();
 		}
 		
-		while(true){}
+		try {
+			Thread.sleep(2000);
+			robotInteraction.Fire(Trigger.USER_GREETS);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void outputCurrentState() {
+		System.out.println("Current State: " +robotInteraction.getState());
+	}
+	
+	public void shutDown() {
+		openCVAdapter.stopOpenCVWindow();
+		SerializationHelper.storeUsers(users, USER_FILE_NAME);
+	}
+	
+	public void run() {
+		openCVAdapter.runOpenCVWindow();
+		try {
+			robotInteraction.Fire(Trigger.INITIALIZED);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void main(String[] args) {
