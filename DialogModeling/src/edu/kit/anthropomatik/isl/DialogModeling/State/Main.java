@@ -9,7 +9,7 @@ import javazoom.jl.player.Player;
 import org.customsoft.stateless4j.StateMachine;
 import org.customsoft.stateless4j.delegates.Action;
 
-import com.darkprograms.speech.synthesiser.Synthesiser;
+import com.darkprograms.speech.synthesizer.Synthesizer;
 
 import edu.kit.anthropomatik.isl.DialogModeling.Input.ConsoleInput;
 import edu.kit.anthropomatik.isl.DialogModeling.Input.IInput;
@@ -227,7 +227,7 @@ public class Main {
 	
 	protected void interactWithUser() {
 		// TODO Auto-generated method stub
-		Synthesiser synth = new Synthesiser(Synthesiser.LANG_UK_ENGLISH);
+		Synthesizer synth = new Synthesizer(Synthesizer.LANG_UK_ENGLISH);
 		
 		InputStream data;
 		try {

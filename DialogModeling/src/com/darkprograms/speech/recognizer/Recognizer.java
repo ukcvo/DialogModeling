@@ -7,12 +7,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import javaFlacEncoder.FLACFileWriter;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.FileRequestEntity;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 
+import com.darkprograms.speech.microphone.Microphone;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -434,6 +436,48 @@ public class Recognizer {
 	public GoogleResponse getRecognizedDataForFlac(String flacFile)
 			throws IOException {
 		return getRecognizedDataForFlac(flacFile, 1);
+	}
+	
+	public static String recognize() throws Exception{
+		int sampleRate = 44100;
+		File file = new File("testfile1.flac"); // Name your file whatever you want
+		
+		Microphone mic = new Microphone(FLACFileWriter.FLAC, sampleRate);	
+		try {
+			mic.captureAudioToFile(file);
+		} catch (Exception ex) {// Microphone not available or some other error.
+			System.out.println("ERROR: Microphone is not available.");
+			ex.printStackTrace();
+			// TODO Add your error Handling Here
+		}
+		// User records the voice here. Microphone starts a separate thread so do
+		// whatever you want in the mean time. Show a recording icon or whatever.
+		try {
+			System.out.println("Recording...");
+			Thread.sleep(5000);// In our case, we'll just wait 5 seconds.
+		//	mic.close();
+		} catch (InterruptedException ex) {
+			// TODO Auto-generated catch block
+			ex.printStackTrace();
+		}
+		mic.close();// Ends recording and frees the resources
+		System.out.println("Recording stopped.");
+
+		Recognizer recognizer = new Recognizer(Recognizer.Languages.ENGLISH_US); //Specify your language here.
+		// Although auto-detect is available, it is recommended you select your region for added accuracy.
+		try {
+			int maxNumOfResponses = 4;
+			GoogleResponse response = recognizer.getRecognizedDataForFlac(file, maxNumOfResponses, sampleRate);
+			System.out.println("Google Response: " + response.getResponse());
+			if (response.getConfidence() != null)
+				System.out.println("Google is " + Double.parseDouble(response.getConfidence())*100 + "% confident in" + " the reply");
+			return response.getResponse();
+		} catch (Exception ex) {
+			// TODO Handle how to respond if Google cannot be contacted
+			System.out.println("ERROR: Google cannot be contacted");
+			ex.printStackTrace();
+			throw new Exception("ERROR: Google cannot be contacted");
+		}
 	}
 
 	/**

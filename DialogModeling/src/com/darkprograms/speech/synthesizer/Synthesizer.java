@@ -1,4 +1,4 @@
-package com.darkprograms.speech.synthesiser;
+package com.darkprograms.speech.synthesizer;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,6 +17,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
+
+import com.darkprograms.speech.synthesiser.Synthesiser;
 import com.darkprograms.speech.translator.GoogleTranslate;
 
 
@@ -26,7 +30,7 @@ import com.darkprograms.speech.translator.GoogleTranslate;
  *
  * @author Luke Kuza, Aaron Gokaslan (Skylion)
  *******************************************************************************/
-public class Synthesiser {
+public class Synthesizer {
 
 	/**
 	 * URL to query for Google synthesiser
@@ -54,14 +58,14 @@ public class Synthesiser {
 	/**
 	 * Constructor
 	 */
-	public Synthesiser() {
+	public Synthesizer() {
 		languageCode = "auto";
 	}
 
 	/**
 	 * Constructor that takes language code parameter. Specify to "auto" for language autoDetection 
 	 */
-	public Synthesiser(String languageCode){
+	public Synthesizer(String languageCode){
 		this.languageCode = languageCode;
 	}
 
@@ -159,6 +163,18 @@ public class Synthesiser {
 			}
 		}
 		return new SequenceInputStream(Collections.enumeration(inputStreams));//Sequences the stream.
+	}
+	
+	public static void synthesize(String text) throws IOException, JavaLayerException {
+		//	String language = "en-us";//English (US) language code   //If you want to specify a language use the ISO code for your country. Ex: en-us
+		//	Synthesiser synth = new Synthesiser(language);
+			Synthesiser synth = new Synthesiser(Synthesiser.LANG_UK_ENGLISH);
+			
+			InputStream data = synth.getMP3Data(text);
+			//TODO Use any Java MP3 Implementation to play back the AudioFile from the InputStream.
+			
+			Player player = new Player(data);
+			player.play();
 	}
 
 	/**
