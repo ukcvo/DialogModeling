@@ -3,6 +3,8 @@ package edu.kit.anthropomatik.isl.DialogModeling.State;
 import com.darkprograms.speech.recognizer.Recognizer;
 import com.darkprograms.speech.synthesizer.Synthesizer;
 
+import edu.kit.anthropomatik.isl.DialogModeling.UserModel.User;
+
 public class StateAskForName extends StateAction {
 
 	protected StateAskForName(Main main) {
@@ -13,27 +15,39 @@ public class StateAskForName extends StateAction {
 	public void doIt() {
 		outputCurrentState();
 
-		
 		Synthesizer.synthesize("Maybe I don't know you yet. What is your name?");
 		
 		
 		String userName="";
 		
 		try {
-			userName= Recognizer.recognize();
+			while (userName=="")
+				userName= Recognizer.recognize();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
+		main.setCurrentUser(null);
+		
+		for (User usr : main.getUsers()) {
+			if (userName.equalsIgnoreCase(usr.getName())) {
+				main.setCurrentUser(usr);
+				break; // take first one
+			}
+		}
+		
 		try {
-			Thread.sleep(2000);
-			if (Math.random() > 0.5)
+			if (main.getCurrentUser() != null)
 				main.getStateMachine().Fire(Trigger.USER_RECOGNIZED);
-			else
+			else {
+				User usr = new User(userName, null);
+				main.getUsers().add(usr);
+				main.setCurrentUser(usr);
+				main.setNewUser(true);
 				main.getStateMachine().Fire(Trigger.USER_UNKNOWN);
+			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
