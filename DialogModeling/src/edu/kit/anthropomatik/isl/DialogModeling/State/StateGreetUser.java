@@ -15,7 +15,7 @@ public class StateGreetUser extends StateAction {
 	@Override
 	public void doIt() {
 		outputCurrentState();
-
+		
 		try {
 			Synthesizer.synthesize("Hello"+ main.getCurrentUser().getName() +"!");
 		} catch (IOException e1) {

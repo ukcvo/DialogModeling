@@ -10,6 +10,8 @@ public class StateAskForHelp extends StateAction {
 	public void doIt() {
 		outputCurrentState();
 		
+		main.makeSnapShot(); // manually make snapshot here, independent of user being new or not
+		
 		try {
 			Thread.sleep(2000);
 			if (Math.random() > 0.5)

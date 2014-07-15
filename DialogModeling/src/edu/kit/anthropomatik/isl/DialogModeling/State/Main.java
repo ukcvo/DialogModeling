@@ -23,6 +23,8 @@ public class Main {
 	
 	private User currentUser;
 	
+	private boolean bIsNewUser;
+	
 	private IOutput output;
 	
 	private IInput input;
@@ -31,6 +33,9 @@ public class Main {
 		
 		this.users = SerializationHelper.loadUsers(USER_FILE_NAME);
 		this.openCVAdapter = new OpenCVAdapter();
+		
+		this.currentUser = null;
+		this.bIsNewUser = false;
 		
 		// TODO: replace this with our actual speech I/O
 		input = new ConsoleInput();
@@ -70,24 +75,34 @@ public class Main {
 			.Permit(Trigger.USER_GREETS, State.SMALL_TALK);
 			
 			stateMachine.Configure(State.SMALL_TALK)
+			.OnEntry(new ActionMakeSnapshot(this))
 			.OnEntry(new StateSmallTalk(this))
+			.OnExit(new ActionMakeSnapshot(this))
 			.Permit(Trigger.WANT_HELP, State.ASK_FOR_HELP);
 			
 			stateMachine.Configure(State.ASK_FOR_HELP)
+			.OnEntry(new ActionMakeSnapshot(this))
 			.OnEntry(new StateAskForHelp(this))
+			.OnExit(new ActionMakeSnapshot(this))
 			.Permit(Trigger.USER_HELPING, State.WAITING_FOR_ELEVATOR)
 			.Permit(Trigger.USER_NOT_HELPING, State.INSULT_USER);
 			
 			stateMachine.Configure(State.WAITING_FOR_ELEVATOR)
+			.OnEntry(new ActionMakeSnapshot(this))
 			.OnEntry(new StateWaitForElevator(this))
+			.OnExit(new ActionMakeSnapshot(this))
 			.Permit(Trigger.JOB_DONE, State.SAY_GOODBYE);
 			
 			stateMachine.Configure(State.INSULT_USER)
+			.OnEntry(new ActionMakeSnapshot(this))
 			.OnEntry(new StateInsultUser(this))
+			.OnExit(new ActionMakeSnapshot(this))
 			.Permit(Trigger.JOB_DONE, State.SAY_GOODBYE);
 			
 			stateMachine.Configure(State.SAY_GOODBYE)
+			.OnEntry(new ActionMakeSnapshot(this))
 			.OnEntry(new StateSayGoodbye(this))
+			.OnExit(new ActionMakeSnapshot(this))
 			.Permit(Trigger.DIALOG_DONE, State.IDLE);
 			
 		} catch (Exception e) {
@@ -130,6 +145,18 @@ public class Main {
 	public StateMachine<State, Trigger> getStateMachine() {
 		return stateMachine;
 	}	
+	
+	public boolean isNewUser() {
+		return bIsNewUser;
+	}
+
+	public void setNewUser(boolean bIsNewUser) {
+		this.bIsNewUser = bIsNewUser;
+	}
+
+	public void makeSnapShot() {
+		this.openCVAdapter.storeCurrentFace(this.currentUser.getId());
+	}
 	
 	public static void main(String[] args) {
 		
