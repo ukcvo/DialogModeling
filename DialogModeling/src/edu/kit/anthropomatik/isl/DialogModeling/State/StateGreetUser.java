@@ -18,6 +18,7 @@ public class StateGreetUser extends StateAction {
 
 		Synthesizer.synthesize("Hello"+ main.getCurrentUser().getName() +"!");
 				
+
 		try {
 			Thread.sleep(2000);
 			main.getStateMachine().Fire(Trigger.USER_GREETS);

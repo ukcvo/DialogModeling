@@ -10,6 +10,7 @@ public class StateIdle extends StateAction {
 		outputCurrentState();
 
 		main.setCurrentUser(null);
+		main.setNewUser(false);
 		
 		boolean faceDetected = false;
 		

@@ -12,6 +12,8 @@ public class StateCollectUserData extends StateAction {
 
 		try {
 			Thread.sleep(2000);
+			
+			main.setNewUser(true); // this is a new user!
 			main.getStateMachine().Fire(Trigger.USER_RECOGNIZED);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
