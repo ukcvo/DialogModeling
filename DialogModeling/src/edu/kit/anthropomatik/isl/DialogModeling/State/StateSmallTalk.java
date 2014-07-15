@@ -1,11 +1,16 @@
 package edu.kit.anthropomatik.isl.DialogModeling.State;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javazoom.jl.decoder.JavaLayerException;
 
 import com.darkprograms.speech.recognizer.Recognizer;
 import com.darkprograms.speech.synthesizer.Synthesizer;
+
+import edu.kit.anthropomatik.isl.DialogModeling.Common.CommonString;
+import edu.kit.anthropomatik.isl.DialogModeling.UserModel.User;
 
 public class StateSmallTalk extends StateAction {
 
@@ -13,19 +18,17 @@ public class StateSmallTalk extends StateAction {
 		super(main);
 	}
 
+	private List<String> GoodMood= new ArrayList<String>();
+	
 	@Override
 	public void doIt() {
 		outputCurrentState();
 		
-		try {
-			Synthesizer.synthesize("How is your work going right now?");
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (JavaLayerException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		GoodMood.add("well");
+		GoodMood.add("nice");
+		GoodMood.add("fine");
+		
+		Synthesizer.synthesize("How is your work going right now?");
 		
 		String answer= "";
 		
@@ -36,26 +39,11 @@ public class StateSmallTalk extends StateAction {
 			e1.printStackTrace();
 		}
 		
-		if (answer.equals("well")){
-			try {
-				Synthesizer.synthesize("Oh, that's nice.");
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (JavaLayerException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}else {
-			try {
-				Synthesizer.synthesize("Oh, well");
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (JavaLayerException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+		if (CommonString.isIn(answer, GoodMood)){
+			Synthesizer.synthesize("Oh, that's nice.");
+			
+		}else{
+			Synthesizer.synthesize("Oh, well");
 		}
 		
 		try {

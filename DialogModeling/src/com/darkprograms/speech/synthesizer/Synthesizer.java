@@ -165,16 +165,30 @@ public class Synthesizer {
 		return new SequenceInputStream(Collections.enumeration(inputStreams));//Sequences the stream.
 	}
 	
-	public static void synthesize(String text) throws IOException, JavaLayerException {
+	public static void synthesize(String text){
 		//	String language = "en-us";//English (US) language code   //If you want to specify a language use the ISO code for your country. Ex: en-us
 		//	Synthesiser synth = new Synthesiser(language);
 			Synthesiser synth = new Synthesiser(Synthesiser.LANG_UK_ENGLISH);
 			
-			InputStream data = synth.getMP3Data(text);
+			InputStream data;
+			data= null;
+			try {
+				data = synth.getMP3Data(text);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			//TODO Use any Java MP3 Implementation to play back the AudioFile from the InputStream.
 			
-			Player player = new Player(data);
-			player.play();
+			Player player;
+			try {
+				player = new Player(data);
+				player.play();
+			} catch (JavaLayerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 	}
 
 	/**

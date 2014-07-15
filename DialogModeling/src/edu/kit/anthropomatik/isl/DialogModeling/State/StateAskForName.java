@@ -1,9 +1,5 @@
 package edu.kit.anthropomatik.isl.DialogModeling.State;
 
-import java.io.IOException;
-
-import javazoom.jl.decoder.JavaLayerException;
-
 import com.darkprograms.speech.recognizer.Recognizer;
 import com.darkprograms.speech.synthesizer.Synthesizer;
 
@@ -17,15 +13,9 @@ public class StateAskForName extends StateAction {
 	public void doIt() {
 		outputCurrentState();
 
-		try {
-			Synthesizer.synthesize("Maybe I don't know you yet. What is your name?");
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (JavaLayerException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		
+		Synthesizer.synthesize("Maybe I don't know you yet. What is your name?");
+		
 		
 		String userName="";
 		
