@@ -19,6 +19,7 @@ public class StateSmallTalk extends StateAction {
 	}
 
 	private List<String> GoodMood= new ArrayList<String>();
+	private List<String> BadMood= new ArrayList<String>();
 	
 	@Override
 	public void doIt() {
@@ -27,6 +28,10 @@ public class StateSmallTalk extends StateAction {
 		GoodMood.add("well");
 		GoodMood.add("nice");
 		GoodMood.add("fine");
+		
+		BadMood.add("hate");
+		BadMood.add("not");
+		BadMood.add("bad");
 		
 		Synthesizer.synthesize("How is your work going right now?");
 		
@@ -42,6 +47,8 @@ public class StateSmallTalk extends StateAction {
 		if (CommonString.isIn(answer, GoodMood)){
 			Synthesizer.synthesize("Oh, that's nice.");
 			
+		}else if (CommonString.isIn(answer, BadMood)) {
+			Synthesizer.synthesize("I'm sorry to hear that");
 		}else{
 			Synthesizer.synthesize("Oh, well");
 		}
