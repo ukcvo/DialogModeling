@@ -72,7 +72,8 @@ public class Main {
 			
 			stateMachine.Configure(State.GREET_USER)
 			.OnEntry(new StateGreetUser(this))
-			.Permit(Trigger.USER_GREETS, State.SMALL_TALK);
+			.Permit(Trigger.USER_GREETS, State.SMALL_TALK)
+			.Permit(Trigger.USER_NOT_RECOGNIZED, State.ASK_FOR_NAME);
 			
 			stateMachine.Configure(State.SMALL_TALK)
 			.OnEntry(new ActionMakeSnapshot(this))
@@ -123,7 +124,7 @@ public class Main {
 
 	public void shutDown() {
 		getOpenCVAdapter().stopOpenCVWindow();
-		SerializationHelper.storeUsers(getUsers(), USER_FILE_NAME);
+		storeUsers();
 	}
 	
 	public User getCurrentUser() {
@@ -158,10 +159,15 @@ public class Main {
 		this.openCVAdapter.storeCurrentFace(this.currentUser.getId());
 	}
 	
+	public void storeUsers() {
+		SerializationHelper.storeUsers(getUsers(), USER_FILE_NAME);
+	}
+	
 	public static void main(String[] args) {
 		
 		Main myMain = new Main();
 		myMain.run();
 		myMain.shutDown();
 	}
+
 }
