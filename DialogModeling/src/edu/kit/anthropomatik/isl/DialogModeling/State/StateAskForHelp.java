@@ -11,6 +11,7 @@ public class StateAskForHelp extends StateAction {
 		outputCurrentState();
 		
 		main.makeSnapShot(); // manually make snapshot here, independent of user being new or not
+		main.getCurrentUser().updateLastTimeSeen();
 		
 		try {
 			Thread.sleep(2000);
