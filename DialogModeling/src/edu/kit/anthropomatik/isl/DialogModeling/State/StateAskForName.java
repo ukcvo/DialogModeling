@@ -1,31 +1,52 @@
 package edu.kit.anthropomatik.isl.DialogModeling.State;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.darkprograms.speech.recognizer.Recognizer;
 import com.darkprograms.speech.synthesizer.Synthesizer;
 
+import edu.kit.anthropomatik.isl.DialogModeling.Common.CommonString;
 import edu.kit.anthropomatik.isl.DialogModeling.UserModel.User;
 
 public class StateAskForName extends StateAction {
 
+		
 	protected StateAskForName(Main main) {
 		super(main);
 	}
 
 	@Override
 	public void doIt() {
+		List<String> userNameList= new ArrayList<String>();
+		List<String> yesOrNoAnswer= new ArrayList<String>();
+		String userName= "";
+	
 		outputCurrentState();
 
 		Synthesizer.synthesize("Maybe I don't know you yet. What is your name?");
 		
-		
-		String userName="";
-		
 		try {
-			while (userName=="")
-				userName= Recognizer.recognize();
+			while (userNameList.isEmpty())
+				userNameList= Recognizer.recognizeAllResponses();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+		}
+		
+			
+		for (int i=0 ; i < userNameList.size(); i++){
+			Synthesizer.synthesize("Your name is" + userNameList.get(i) +". Is that right?");
+			try {
+				yesOrNoAnswer= Recognizer.recognizeAllResponses();
+				if(CommonString.isIn(yesOrNoAnswer, "yes")){
+					userName= userNameList.get(i);
+					break;
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		main.setCurrentUser(null);

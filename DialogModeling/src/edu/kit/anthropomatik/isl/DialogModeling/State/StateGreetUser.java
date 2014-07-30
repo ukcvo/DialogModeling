@@ -22,11 +22,12 @@ public class StateGreetUser extends StateAction {
 	
 	@Override
 	public void doIt() {
-		String answer= "";
+		List<String> answers= new ArrayList<String>();
 		
 		GoodMood.add("well");
 		GoodMood.add("nice");
 		GoodMood.add("fine");
+		GoodMood.add("good");
 		
 		BadMood.add("hate");
 		BadMood.add("not");
@@ -36,13 +37,15 @@ public class StateGreetUser extends StateAction {
 		Synthesizer.synthesize("Hello"+ main.getCurrentUser().getName() +"! How are you?");
 		
 		try {
-			answer= Recognizer.recognize();
+			while(answers.isEmpty()){
+				answers= Recognizer.recognizeAllResponses();
+			}
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		if (CommonString.isIn(answer, main.getCurrentUser().getName())){
+		System.out.println(answers.isEmpty());
+		if (CommonString.isIn(answers, main.getCurrentUser().getName())){
 			Synthesizer.synthesize("Oh, it seems that I got your name wrong");
 			try {
 				Thread.sleep(2000);
@@ -52,7 +55,7 @@ public class StateGreetUser extends StateAction {
 				e.printStackTrace();
 			}
 			
-		}else if (CommonString.isIn(answer, GoodMood)) {
+		}else if (CommonString.isIn(answers, GoodMood)) {
 			Synthesizer.synthesize("Good for you");
 		}else{
 			Synthesizer.synthesize("Alright");

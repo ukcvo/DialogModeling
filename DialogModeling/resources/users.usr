@@ -34,7 +34,7 @@
        <string>Speech Recognition</string>
       </void>
       <void property="projectState">
-       <object class="java.lang.Enum" id="UserProjectState0" method="valueOf">
+       <object class="java.lang.Enum" method="valueOf">
         <class>edu.kit.anthropomatik.isl.DialogModeling.UserModel.UserProjectState</class>
         <string>NEW</string>
        </object>

@@ -15,4 +15,26 @@ public class CommonString {
         }
 		return false;
 	}
+	
+	public static Boolean isIn(List<String> sentence, List<String> substrings){
+		for (int i = 0; i < substrings.size(); i++) {
+			for (int j = 0; j < sentence.size(); j++) {
+				if (isIn(sentence.get(j), substrings.get(i))){
+	            	return true;
+	            }
+			}
+        }
+		return false;
+	}
+	
+	public static Boolean isIn(List<String> sentence, String substring){
+		
+		for (int j = 0; j < sentence.size(); j++) {
+			if (isIn(sentence.get(j), substring)){
+            	return true;
+            }
+		}
+        
+		return false;
+	}
 }
