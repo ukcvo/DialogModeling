@@ -127,7 +127,8 @@ public class Recognizer {
 //	private static final String GOOGLE_RECOGNIZER_URL = "https://www.google.com/speech-api/v1/recognize?xjerr=1&client=chromium"; // v1 doesn't work anymore
 	//TODO replace with your key in the following GOOGLE_RECOGNIZER_URL
 	private static final String GOOGLE_RECOGNIZER_URL = "https://www.google.com/speech-api/v2/recognize?output=json&key=AIzaSyBitKL0B5M5iEAcoI7uCK_EBYBtJkwdPjc"; // lgzhang
-
+	//alternative key: AIzaSyCivfD8Yz2Ie53FtH_jl-8PQGVWzqEAKa0
+	
 	private boolean profanityFilter = true;
 	private String language = null;
 
