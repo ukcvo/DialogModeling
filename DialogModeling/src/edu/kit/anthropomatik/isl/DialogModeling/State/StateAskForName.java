@@ -24,11 +24,11 @@ public class StateAskForName extends StateAction {
 	
 		outputCurrentState();
 
-		Synthesizer.synthesize("Maybe I don't know you yet. What is your name?");
-		
 		try {
-			while (userNameList.isEmpty())
+			while (userNameList.isEmpty()) {
+				Synthesizer.synthesize("Maybe I don't know you yet. What is your name?");
 				userNameList= Recognizer.recognizeAllResponses();
+			}
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -36,13 +36,18 @@ public class StateAskForName extends StateAction {
 		
 			
 		for (int i=0 ; i < userNameList.size(); i++){
-			Synthesizer.synthesize("Your name is " + userNameList.get(i) +". Is that right?");
 			try {
-				yesOrNoAnswer= Recognizer.recognizeAllResponses();
+				while (yesOrNoAnswer.isEmpty() || yesOrNoAnswer.get(0) == null) {
+					Synthesizer.synthesize("Your name is " + userNameList.get(i) +". Is that right?");
+					System.out.println(userNameList.get(i));
+					yesOrNoAnswer= Recognizer.recognizeAllResponses();
+				}
+					
 				if(CommonString.isIn(yesOrNoAnswer, "yes")){
 					userName= userNameList.get(i);
 					break;
-				}
+				} 
+				yesOrNoAnswer.clear();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
