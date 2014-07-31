@@ -30,14 +30,7 @@ public class StateInsultUser extends StateAction {
 		
 		if (CommonString.isIn(answer, "time")){
 			Synthesizer.synthesize("Oh, I can understand that.");
-			try {
-				Thread.sleep(2000);
-				main.getStateMachine().Fire(Trigger.JOB_DONE);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
+						
 		}else{
 			Synthesizer.synthesize("I don't want to talk to you anymore.");
 		}

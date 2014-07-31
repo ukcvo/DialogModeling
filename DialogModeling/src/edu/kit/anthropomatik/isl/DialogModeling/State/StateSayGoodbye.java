@@ -1,5 +1,7 @@
 package edu.kit.anthropomatik.isl.DialogModeling.State;
 
+import com.darkprograms.speech.synthesizer.Synthesizer;
+
 import edu.kit.anthropomatik.isl.DialogModeling.UserModel.SerializationHelper;
 
 public class StateSayGoodbye extends StateAction {
@@ -11,6 +13,8 @@ public class StateSayGoodbye extends StateAction {
 	@Override
 	public void doIt() {
 		outputCurrentState();
+		
+		Synthesizer.synthesize("Goodbye, " + main.getCurrentUser().getName());
 		
 		try {
 			Thread.sleep(2000);
