@@ -36,7 +36,7 @@ public class StateAskForName extends StateAction {
 		
 			
 		for (int i=0 ; i < userNameList.size(); i++){
-			Synthesizer.synthesize("Your name is" + userNameList.get(i) +". Is that right?");
+			Synthesizer.synthesize("Your name is " + userNameList.get(i) +". Is that right?");
 			try {
 				yesOrNoAnswer= Recognizer.recognizeAllResponses();
 				if(CommonString.isIn(yesOrNoAnswer, "yes")){
