@@ -44,7 +44,7 @@ public class StateGreetUser extends StateAction {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		System.out.println(answers.isEmpty());
+		
 		if (CommonString.isIn(answers, main.getCurrentUser().getName())){
 			Synthesizer.synthesize("Oh, it seems that I got your name wrong");
 			try {
